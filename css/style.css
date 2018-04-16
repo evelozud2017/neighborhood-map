@@ -1,0 +1,17 @@
+.hr-rule {
+    border-bottom: 3px solid #7d97ad;
+}
+
+.container {
+  font-family: "Lato", sans-serif;
+  color: #2d3c49;
+}
+
+.margin_top {
+  margin-top: 25px;
+}
+
+.affix {
+    top: 20px;
+    z-index: 9999 !important;
+}
