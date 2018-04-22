@@ -91,7 +91,7 @@ var Itinerary = function(data) {
   var highlightedIcon = makeMarkerIcon('eeeee0');
 
   // Goto wiki to get an image and info
-  var wikiUrl = "http://en.wikipedia.org/w/api.php?action=opensearch";
+  var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch";
   wikiUrl += '&' + $.param({
     'search': self.title,
     'format':"json",
@@ -99,7 +99,7 @@ var Itinerary = function(data) {
     'callback':"wikiCallBack"
   });
 
-  var wikiImgUrl = "http://en.wikipedia.org/w/api.php?action=query";
+  var wikiImgUrl = "https://en.wikipedia.org/w/api.php?action=query";
   wikiImgUrl += '&' + $.param({
     'format': "json",
     'prop': "pageimages",
