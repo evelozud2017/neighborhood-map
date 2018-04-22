@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Bonjour! Paris</title>
+  </head>
+  <body>
+    <!-- top menu header START -->
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-header  navbar-right">
+          <div class="navbar-brand">
+            <span class="nav-title">Paris Must-See</span>
+          </div>
+        </div>
+
+        <form class="navbar-form navbar-left">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Filter must see..." data-bind="textInput: searchItem, valueUpdate: 'afterkeydown'">
+            <div class="input-group-btn">
+              <button class="btn btn-default">
+                <i class="glyphicon glyphicon-filter"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+    <!-- top menu header END -->
+
+    <!-- side bar / map START -->
+    <div class="container-fluid">
+      <div class="row">
+        <div id="map"></div>
+        <div class="col-md-3 collapsed in" id="navbarSupportedContent">
+          <div class="sidenav">
+            <div class="list-group" data-bind="foreach: itineraryList">
+              <a href="#" class="list-group-item list-group-item-action" data-bind="text: title, click: show"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- side bar / map END -->
+
+    <footer class="navbar-default navbar-fixed-bottom">
+      <div class="container-fluid">
+        <span class="small">This website uses material from the Wikipedia article <a href="https://en.wikipedia.org/wiki/Metasyntactic_variable">"Metasyntactic_variable"</a>,
+          which is released under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.</span>
+      </div>
+    </footer>
+
+    <!-- script declarations -->
+    <script src="js/lib/knockout-3.4.2.js"></script>
+    <script src="js/map.js"></script>
+    <!-- google apis -->
+    <script async defer
+    src=
+    "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCAHNDjNGA0dXqccx41R9GcZ_PIopYhc70&v=3&callback=initMap">
+    </script>
+  </body>
+  </html>
