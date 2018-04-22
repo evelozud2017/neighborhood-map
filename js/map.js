@@ -122,7 +122,7 @@ var Itinerary = function(data) {
 
       for(var i=0; i<articleList.length; i++) {
         articleStr = articleList[i];
-        self.infourl = 'http://en.wikipedia.org/wiki/' + articleStr;
+        self.infourl = 'https://en.wikipedia.org/wiki/' + articleStr;
       };
 
       $.ajax({
