@@ -118,31 +118,25 @@ var Itinerary = function(data) {
     var articleList = data[1];
     self.description = data[2];
 
-    for(var i=0; i<articleList.length; i++) {
-      articleStr = articleList[i];
+    articleList.forEach(function(articleStr) {
       self.infourl = 'https://en.wikipedia.org/wiki/' + articleStr;
-    };
+    });
+
     //get thumbnail
     $.ajax({
       url: wikiImgUrl,
       method: "GET",
       dataType: "jsonp"
     }).done(function(imgResponse) {
-      for(var i=0; i < 1; i++) {
-        //get the pageid of returned image
-        var pagesObj = imgResponse.query.pages;
-        for(var pageId in pagesObj) {
-          if(pagesObj.hasOwnProperty(pageId)) {
-            var val = pagesObj[pageId];
-            //get url for thumbnail image
-            if (imgResponse.query.pages[pageId].hasOwnProperty("thumbnail") === true) {
-              self.image = imgResponse.query.pages[pageId].thumbnail.source;
-            } else {
-              self.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Article_icon_cropped.svg/512px-Article_icon_cropped.svg.png";
-            }
-          }
+      var pagesList = Object.keys(imgResponse.query.pages);
+      pagesList.forEach(function(pageId) {
+        //get url for thumbnail image
+        if (imgResponse.query.pages[pageId].hasOwnProperty("thumbnail") === true) {
+          self.image = imgResponse.query.pages[pageId].thumbnail.source;
+        } else {
+          self.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Article_icon_cropped.svg/512px-Article_icon_cropped.svg.png";
         }
-      }
+      });
     }).fail(function() {
       alert("Error found while calling wikipedia for image");
     });
@@ -152,10 +146,6 @@ var Itinerary = function(data) {
   }).fail(function() {
     alert("Error found while calling wikipedia for information");
   });
-
-
-
-
 
   //Construct what to display
   //in info window when user selects the Place
@@ -203,10 +193,9 @@ var Itinerary = function(data) {
     toggleBounce(this);
   });
 
-  this.show = function(location) {
+  this.show = function() {
     google.maps.event.trigger(self.marker, 'click');
   };
-
 
 };
 
@@ -223,7 +212,6 @@ var ItineraryViewModel = function() {
     self.placesToSeeList.push( new Itinerary(locationItem) );
   });
 
-
   // locations viewed on map
   this.itineraryList = ko.computed(function() {
     var searchFilter = self.searchItem().toLowerCase();
@@ -231,7 +219,8 @@ var ItineraryViewModel = function() {
       return ko.utils.arrayFilter(self.placesToSeeList(), function(location) {
         var str = location.title.toLowerCase();
         var result = str.includes(searchFilter);
-        location.visible(result);
+        location.marker.setVisible(result);
+        //location.visible(result);
         return result;
       });
     }
@@ -240,7 +229,6 @@ var ItineraryViewModel = function() {
     });
     return self.placesToSeeList();
   }, self);
-
 
 };
 

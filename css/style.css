@@ -13,7 +13,7 @@
 
 
 .sidenav {
-    margin: 0;
+    margin: 0px;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -23,7 +23,7 @@
 
 .navbar {
     border-radius: 0px;
-    margin-bottom: 0;
+    margin-bottom: 0px;
     background-color: #800000;
 }
 
