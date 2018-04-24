@@ -2,7 +2,7 @@
 Neighborhood Map is a simple website that displays a list of must-see places in Paris, France. It marks these places on the map and provide information about these.
 
 # Installation
-1. Download the files including sub-folders from https://github.com/evelozud2017/neighborhood-map.git
+- Download the files including sub-folders from https://github.com/evelozud2017/neighborhood-map.git
 
 # How to use
 - Open index.html in browser.

@@ -75,11 +75,11 @@ function initMap() {
 var Itinerary = function(data) {
   var self = this;
 
-  this.title = data.title;
-  this.location = data.location;
-  this.image = '';
-  this.infourl = '';
-  this.description = '';
+  self.title = data.title;
+  self.location = data.location;
+  self.image = '';
+  self.infourl = '';
+  self.description = '';
 
   this.visible = ko.observable(true);
 
@@ -111,49 +111,50 @@ var Itinerary = function(data) {
     self.description = "failed to get wikipedia resources";
   }, 8000);
 
-
   $.ajax({
     url: wikiUrl,
-    dataType: "jsonp",
-    //jsonp: "callback",
-    success: function( response ) {
-      var articleList = response[1];
-      self.description = response[2];
+    dataType: "jsonp"
+  }).done(function(data) {
+    var articleList = data[1];
+    self.description = data[2];
 
-      for(var i=0; i<articleList.length; i++) {
-        articleStr = articleList[i];
-        self.infourl = 'https://en.wikipedia.org/wiki/' + articleStr;
-      };
-
-      $.ajax({
-        url: wikiImgUrl,
-        method: "GET",
-        dataType: "jsonp",
-        success: function( imgResponse ) {
-          for(var i=0; i < 1; i++) {
-            //get the pageid of returned image
-            var pagesObj = imgResponse.query.pages;
-            for(var pageId in pagesObj) {
-              if(pagesObj.hasOwnProperty(pageId)) {
-                var val = pagesObj[pageId];
-                //get url for thumbnail image
-                if (imgResponse.query.pages[pageId].hasOwnProperty("thumbnail") === true) {
-                  self.image = imgResponse.query.pages[pageId].thumbnail.source;
-                } else {
-                  self.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Article_icon_cropped.svg/512px-Article_icon_cropped.svg.png";
-                }
-              }
+    for(var i=0; i<articleList.length; i++) {
+      articleStr = articleList[i];
+      self.infourl = 'https://en.wikipedia.org/wiki/' + articleStr;
+    };
+    //get thumbnail
+    $.ajax({
+      url: wikiImgUrl,
+      method: "GET",
+      dataType: "jsonp"
+    }).done(function(imgResponse) {
+      for(var i=0; i < 1; i++) {
+        //get the pageid of returned image
+        var pagesObj = imgResponse.query.pages;
+        for(var pageId in pagesObj) {
+          if(pagesObj.hasOwnProperty(pageId)) {
+            var val = pagesObj[pageId];
+            //get url for thumbnail image
+            if (imgResponse.query.pages[pageId].hasOwnProperty("thumbnail") === true) {
+              self.image = imgResponse.query.pages[pageId].thumbnail.source;
+            } else {
+              self.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Article_icon_cropped.svg/512px-Article_icon_cropped.svg.png";
             }
           }
         }
-      }).fail(function() {
-        alert("Error found while calling wikipedia for image");
-      });; /* END .ajax for img */
-      clearTimeout(wikiRequestTimeout);
-    }
+      }
+    }).fail(function() {
+      alert("Error found while calling wikipedia for image");
+    });
+
+    clearTimeout(wikiRequestTimeout);
+
   }).fail(function() {
     alert("Error found while calling wikipedia for information");
   });
+
+
+
 
 
   //Construct what to display
@@ -206,9 +207,6 @@ var Itinerary = function(data) {
     google.maps.event.trigger(self.marker, 'click');
   };
 
-  this.bounce = function(place) {
-    google.maps.event.trigger(self.marker, 'click');
-  };
 
 };
 
@@ -291,4 +289,11 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Point(10, 34),
     new google.maps.Size(21,34));
   return markerImage;
+}
+
+// function to log error when
+// google encounters error why loading
+function googleError() {
+  alert('Error found while calling Google maps api!');
+
 }

@@ -37,10 +37,24 @@
     <div class="container-fluid">
       <div class="row">
         <div id="map"></div>
-        <div class="col-md-3 collapsed in" id="navbarSupportedContent">
+        <div class="col-md-3 collapsed in hidden-xs" id="navbarSupportedContent">
           <div class="sidenav">
             <div class="list-group" data-bind="foreach: itineraryList">
               <a href="#" class="list-group-item list-group-item-action" data-bind="text: title, click: show"></a>
+            </div>
+          </div>
+        </div>
+        <div class="panel-group visible-xs">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Places to visit...</a>
+              </h5>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+              <div class="list-group" data-bind="foreach: itineraryList">
+                <a href="#" class="list-group-item list-group-item-action" data-bind="text: title, click: show"></a>
+              </div>
             </div>
           </div>
         </div>
@@ -61,7 +75,7 @@
     <!-- google apis -->
     <script async defer
     src=
-    "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCAHNDjNGA0dXqccx41R9GcZ_PIopYhc70&v=3&callback=initMap">
+    "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCAHNDjNGA0dXqccx41R9GcZ_PIopYhc70&v=3&callback=initMap" onerror="googleError()">
     </script>
   </body>
   </html>
